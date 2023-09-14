@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
-
 void main() {
   runApp(const MyApp());
 }
@@ -50,10 +48,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String dropdownValue = list.first;
-
-  final ButtonStyle style =
-      ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
   int _counter = 0;
 
   void _incrementCounter() {
@@ -75,122 +69,91 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    String test = 'test';
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          tooltip: 'Increase volume by 10',
-          onPressed: () {
-            setState(() {});
-          },
-        ),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: Column(
           children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                _incrementCounter();
-              },
-              child: const Text(
-                'You have pushed the button this many times:',
-              ),
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            DropdownButton<String>(
-              value: dropdownValue,
-              icon: const Icon(Icons.arrow_downward),
-              elevation: 16,
-              style: const TextStyle(color: Colors.deepPurple),
-              underline: Container(
-                height: 2,
-                color: Colors.deepPurpleAccent,
-              ),
-              onChanged: (String? value) {
-                setState(() {
-                  dropdownValue = value!;
-                });
-              },
-              items: list.map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-            ElevatedButton(
-              style: style,
-              onPressed: () {},
-              child: const Text('Enabled'),
-            ),
-            OutlinedButton(
-              onPressed: () {
-                debugPrint('Recived click');
-              },
-              child: const Text('Click Me'),
-            ),
-            TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.white,
-                padding: const EdgeInsets.all(16.0),
-                textStyle: const TextStyle(fontSize: 20),
-              ),
-              onPressed: () {},
-              child: const Text('Gradient'),
-            ),
-            TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  padding: const EdgeInsets.symmetric(),
-                  textStyle: const TextStyle(fontSize: 20),
+            Row(mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(child:FloatingActionButton(
+                  onPressed: _incrementCounter,
+                  tooltip: 'Increment',
+                  child: const Icon(Icons.add), backgroundColor: Colors.red,
+                  ), // This trailing comma makes auto-formatting nicer for build methods.
                 ),
-                onPressed: () {
-                  test = "АААААААА";
-                },
-                child: const Text("Берсерк.")),
-            GestureDetector(
-                child: Container(
-                  height: 20,
-                  width: 40,
-                  color: Colors.lightGreen,
-                  child: Text('$test',
-                      style: const TextStyle(color: Colors.black26)),
+                      ],
+            ),
+            SizedBox(
+                height: 50.0,
+              ),
+              const Text(
+                  'You have pushed the button this many times:',
                 ),
-                onTap: () {
-                  test = "ss";
-                })
+                Text(
+                  '$_counter',
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+            Card(
+                    shape: RoundedRectangleBorder(
+    side: BorderSide(
+      color: Colors.grey,
+    ),
+    borderRadius: BorderRadius.circular(20.0),
+  ),
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(200, 10, 170, 20),
+                    child: Text(''),
+                  ),
+                ),
+                 Card(
+                    shape: RoundedRectangleBorder(
+    side: BorderSide(
+      color: Colors.grey,
+    ),
+    borderRadius: BorderRadius.circular(20.0),
+  ),
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(200, 10, 170, 20),
+                    child: Text(''),
+                  ),
+                ),
+                  Card(
+                    shape: RoundedRectangleBorder(
+    side: BorderSide(
+      color: Colors.grey,
+    ),
+    borderRadius: BorderRadius.circular(20.0),
+  ),
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(200, 10, 170, 20),
+                    child: Text(''),
+                  ),
+                ),
+ Container(child:FloatingActionButton(
+                  onPressed: _incrementCounter,
+                  tooltip: 'Increment',
+                  child: const Icon(Icons.add),backgroundColor: Colors.red
+                  ), // This trailing comma makes auto-formatting nicer for build methods.
+                ),
+                 Card(
+                    shape: RoundedRectangleBorder(
+    side: BorderSide(
+      color: Colors.grey,
+    ),
+    borderRadius: BorderRadius.circular(20.0),
+  ),
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(200, 150, 170, 20),
+                    child: Text(''),
+                  ),
+                ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+
     );
   }
 }
