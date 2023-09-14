@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
+
 void main() {
   runApp(const MyApp());
 }
@@ -48,6 +50,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  String dropdownValue = list.first;
+
+  final ButtonStyle style =
+      ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
   int _counter = 0;
 
   void _incrementCounter() {
@@ -69,11 +75,19 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+    String test = 'test';
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        leading: IconButton(
+          icon: const Icon(Icons.menu),
+          tooltip: 'Increase volume by 10',
+          onPressed: () {
+            setState(() {});
+          },
+        ),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -95,13 +109,80 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            GestureDetector(
+              onTap: () {
+                _incrementCounter();
+              },
+              child: const Text(
+                'You have pushed the button this many times:',
+              ),
             ),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            DropdownButton<String>(
+              value: dropdownValue,
+              icon: const Icon(Icons.arrow_downward),
+              elevation: 16,
+              style: const TextStyle(color: Colors.deepPurple),
+              underline: Container(
+                height: 2,
+                color: Colors.deepPurpleAccent,
+              ),
+              onChanged: (String? value) {
+                setState(() {
+                  dropdownValue = value!;
+                });
+              },
+              items: list.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+            ElevatedButton(
+              style: style,
+              onPressed: () {},
+              child: const Text('Enabled'),
+            ),
+            OutlinedButton(
+              onPressed: () {
+                debugPrint('Recived click');
+              },
+              child: const Text('Click Me'),
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.white,
+                padding: const EdgeInsets.all(16.0),
+                textStyle: const TextStyle(fontSize: 20),
+              ),
+              onPressed: () {},
+              child: const Text('Gradient'),
+            ),
+            TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  padding: const EdgeInsets.symmetric(),
+                  textStyle: const TextStyle(fontSize: 20),
+                ),
+                onPressed: () {
+                  test = "АААААААА";
+                },
+                child: const Text("Берсерк.")),
+            GestureDetector(
+                child: Container(
+                  height: 20,
+                  width: 40,
+                  color: Colors.lightGreen,
+                  child: Text('$test',
+                      style: const TextStyle(color: Colors.black26)),
+                ),
+                onTap: () {
+                  test = "ss";
+                })
           ],
         ),
       ),
