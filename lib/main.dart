@@ -1,47 +1,75 @@
 import 'package:flutter/material.dart';
-import 'package:part_9/screens/HomeScreen.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const LogoApp());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class LogoWidget extends StatelessWidget {
+  const LogoWidget({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      child: const FlutterLogo(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class GrowTransition extends StatelessWidget {
+  const GrowTransition(
+      {required this.child, required this.animation, super.key});
 
-  final String title;
+  final Widget child;
+  final Animation<double> animation;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  Widget build(BuildContext context) {
+    return Center(
+      child: AnimatedBuilder(
+        animation: animation,
+        builder: (context, child) {
+          return SizedBox(
+            height: animation.value,
+            width: animation.value,
+            child: child,
+          );
+        },
+        child: child,
+      ),
+    );
+  }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class LogoApp extends StatefulWidget {
+  const LogoApp({super.key});
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  @override
+  State<LogoApp> createState() => _LogoAppState();
+}
+
+class _LogoAppState extends State<LogoApp> with SingleTickerProviderStateMixin {
+  late Animation<double> animation;
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller =
+        AnimationController(duration: const Duration(seconds: 2), vsync: this);
+    animation = Tween<double>(begin: 0, end: 300).animate(controller);
+    controller.forward();
   }
 
   @override
   Widget build(BuildContext context) {
-    return HomeScreen(title: widget.title);
+    return GrowTransition(
+      animation: animation,
+      child: const LogoWidget(),
+    );
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }
