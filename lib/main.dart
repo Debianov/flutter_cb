@@ -1,70 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:part_9/screens/HomeScreen.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  static const String _title = 'Flutter Code Sample';
-
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: _title,
-      home: MyStatelessWidget(),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyStatelessWidget extends StatelessWidget {
-  const MyStatelessWidget({super.key});
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('LayoutBuilder Example')),
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-          if (constraints.maxWidth > 600) {
-            return _buildWideContainers();
-          } else {
-            return _buildNormalContainer();
-          }
-        },
-      ),
-    );
-  }
-
-  Widget _buildNormalContainer() {
-    return Center(
-      child: Container(
-        height: 100.0,
-        width: 100.0,
-        color: Colors.red,
-      ),
-    );
-  }
-
-  Widget _buildWideContainers() {
-    return Center(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Container(
-            height: 100.0,
-            width: 100.0,
-            color: Colors.red,
-            child: const Text("Ачё, всмысле")
-          ),
-          Container(
-            height: 100.0,
-            width: 100.0,
-            color: Colors.yellow,
-            child: const Text("Скрытый уровень.")
-          ),
-        ],
-      ),
-    );
+    return HomeScreen(title: widget.title);
   }
 }
-  
